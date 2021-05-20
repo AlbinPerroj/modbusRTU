@@ -1,0 +1,167 @@
+﻿<Window x:Class="MBMaster.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MBMaster"
+        mc:Ignorable="d"
+        Title="ModBusRTU-Tool" Height="500" Width="1000" WindowStartupLocation="CenterOwner" ResizeMode="CanResize" 
+        WindowState="Normal" FontFamily="Roboto" FontSize="14" Foreground="Black" Background="#F5F5F5" 
+        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Padding="0"
+        Icon="Resources\Icons\mb.png">
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Background="Transparent" ShowGridLines="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+               Content="{Binding Path=COMPortInfo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+               Margin="0" Padding="20, 1,1,1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black"
+               BorderThickness="0,0,0,1" Background="White"/>
+
+        <Grid Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+              Grid.Row="0" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#bdbdbd">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="100"/>
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="COM" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Padding="0" Margin="20,3,3,3"  VerticalContentAlignment="Center"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                      Margin="3" Padding="5" VerticalContentAlignment="Center"
+                      SelectedItem="{Binding Path=MyCOM.ComPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Path=MyCOM.COMList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Content="Baudrate" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Padding="0" Margin="20,3,3,3" VerticalContentAlignment="Center"/>
+            <ComboBox Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                      Margin="3" Padding="5"  
+                      SelectedItem="{Binding Path=MyCOM.Baudrate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Path=MyCOM.BaudrateList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Label Content="DataBits" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Padding="0" Margin="20,3,3,3" VerticalContentAlignment="Center"/>
+            <ComboBox Grid.Row="0" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                      Margin="3" Padding="5" 
+                      SelectedItem="{Binding Path=MyCOM.DataBits, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Path=MyCOM.DataBitsList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+            <Label Content="StopBits" Grid.Row="0" Grid.Column="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Padding="0" Margin="20,3,3,3" VerticalContentAlignment="Center"/>
+            <ComboBox Grid.Row="0" Grid.Column="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                      Margin="3" Padding="5" 
+                      SelectedItem="{Binding Path=MyCOM.StopBits, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Path=MyCOM.StopBitsList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+
+            <Label Content="Parity" Grid.Row="0" Grid.Column="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Padding="0" Margin="20,3,3,3" VerticalContentAlignment="Center"/>
+            <ComboBox Grid.Row="0" Grid.Column="9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                      Margin="3" Padding="5"
+                      SelectedItem="{Binding Path=MyCOM.ParityControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Path=MyCOM.ParityList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        </Grid>
+
+
+        <GroupBox Header="Receive Data" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                  Margin="2" Padding="2"  BorderBrush="DarkBlue" BorderThickness="1" Foreground="DarkBlue">
+            <Grid Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Transmit Data" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                  Margin="2" Padding="2"  BorderBrush="Red" BorderThickness="1" Foreground="Red">
+            <Grid Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="Modbus request" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                       Margin="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"/>
+
+                <TextBox Grid.Row="1" Grid.Column="0" Margin="0" Padding="2" ToolTip="ID"
+                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                         VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+                         Text="{Binding Path=MBReq.ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
+                
+                <ComboBox Grid.Row="1" Grid.Column="1" Margin="0" Padding="2" ToolTip="FC" HorizontalContentAlignment="Center"
+                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                          VerticalContentAlignment="Center" DisplayMemberPath="Value" SelectedValuePath="Key"
+                          SelectedValue="{Binding Path=MBReq.FC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                          ItemsSource="{Binding Path=MBReq.FCodes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <TextBox Grid.Row="1" Grid.Column="2" Margin="0" Padding="2" ToolTip="Start Register"
+                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding Path=MBReq.StartAddr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
+                
+                <TextBox Grid.Row="1" Grid.Column="3" Margin="0" Padding="2" ToolTip="Register number"
+                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding Path=MBReq.NrReg, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
+                
+                <TextBox Grid.Row="1" Grid.Column="4" Margin="0" Padding="2" ToolTip="CRC"
+                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right"
+                         IsReadOnly="True" VerticalContentAlignment="Center"
+                         Text="{Binding Path=MBReq.CRC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
+
+                <Button Content="Send" Height="20" Width="80" Click="Button_Click"
+                        Grid.Row="3" Grid.Column="5" Margin="0"/>
+
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</Window>
