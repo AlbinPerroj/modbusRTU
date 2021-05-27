@@ -51,7 +51,7 @@ namespace MBMaster.Models
         }
 
 
-        private ushort _startAddr = 40000;
+        private ushort _startAddr = 0;
         public ushort StartAddr
         {
             get { return _startAddr; }
@@ -63,7 +63,7 @@ namespace MBMaster.Models
         }
 
 
-        private ushort _nrReg = 10;
+        private ushort _nrReg = 1;
         public ushort NrReg
         {
             get { return _nrReg; }
@@ -249,36 +249,62 @@ namespace MBMaster.Models
 
         public static byte[] GetModbusCrc16(byte[] bytes)
         {
-            byte crcRegister_H = 0xFF, crcRegister_L = 0xFF; // presets a 16-bit register value 0xFFFF
+            ushort calcCRC;
+            ushort temp;
+            ushort flag;
 
-            byte polynomialCode_H = 0xA0, polynomialCode_L = 0x01; // polynomial code 0xA001
+            int length = bytes.Length;
 
-            for (int i = 0; i < bytes.Length; i++)
+            calcCRC = 0xFFFF;
+            for (byte a = 0; a < length; a++)
             {
-                crcRegister_L = (byte)(crcRegister_L ^ bytes[i]);
+                calcCRC = (ushort)(calcCRC ^ bytes[a]);
 
-                for (int j = 0; j < 8; j++)
+                for (byte b = 1; b <= 8; b++)
                 {
-                    byte tempCRC_H = crcRegister_H;
-                    byte tempCRC_L = crcRegister_L;
-
-                    crcRegister_H = (byte)(crcRegister_H >> 1);
-                    crcRegister_L = (byte)(crcRegister_L >> 1);
-                    // Finally, a bit after the first should be the lower right front upper right: If the last digit is a high-low 1 right up front
-                    if ((tempCRC_H & 0x01) == 0x01)
-                    {
-                        crcRegister_L = (byte)(crcRegister_L | 0x80);
-                    }
-
-                    if ((tempCRC_L & 0x01) == 0x01)
-                    {
-                        crcRegister_H = (byte)(crcRegister_H ^ polynomialCode_H);
-                        crcRegister_L = (byte)(crcRegister_L ^ polynomialCode_L);
-                    }
+                    flag =(ushort)(calcCRC & 0x0001);
+                    calcCRC >>= 1;
+                    if (flag == 1)
+                        calcCRC ^= 0xA001;
                 }
             }
 
-            return new byte[] { crcRegister_L, crcRegister_H };
+            temp = (ushort)(calcCRC >> 8);
+            calcCRC = (ushort)((calcCRC << 8) | temp);
+            calcCRC &= 0xFFFF;
+
+
+
+            //byte crcRegister_H = 0xFF, crcRegister_L = 0xFF; // presets a 16-bit register value 0xFFFF
+
+            //byte polynomialCode_H = 0xA0, polynomialCode_L = 0x01; // polynomial code 0xA001
+
+            //for (int i = 0; i < bytes.Length; i++)
+            //{
+            //    crcRegister_L = (byte)(crcRegister_L ^ bytes[i]);
+
+            //    for (int j = 0; j < 8; j++)
+            //    {
+            //        byte tempCRC_H = crcRegister_H;
+            //        byte tempCRC_L = crcRegister_L;
+
+            //        crcRegister_H = (byte)(crcRegister_H >> 1);
+            //        crcRegister_L = (byte)(crcRegister_L >> 1);
+            //        // Finally, a bit after the first should be the lower right front upper right: If the last digit is a high-low 1 right up front
+            //        if ((tempCRC_H & 0x01) == 0x01)
+            //        {
+            //            crcRegister_L = (byte)(crcRegister_L | 0x80);
+            //        }
+
+            //        if ((tempCRC_L & 0x01) == 0x01)
+            //        {
+            //            crcRegister_H = (byte)(crcRegister_H ^ polynomialCode_H);
+            //            crcRegister_L = (byte)(crcRegister_L ^ polynomialCode_L);
+            //        }
+            //    }
+            //}
+
+            return new byte[] { (byte)(calcCRC & 255), (byte)(calcCRC >> 8) };
 
         }
 

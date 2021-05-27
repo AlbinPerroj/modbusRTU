@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MBMaster"
         mc:Ignorable="d"
-        Title="ModBusRTU-Tool" Height="500" Width="1000" WindowStartupLocation="CenterOwner" ResizeMode="CanResize" 
+        Title="ModBusRTU-Tool" Height="500" Width="1100" WindowStartupLocation="CenterOwner" ResizeMode="CanResize" 
         WindowState="Normal" FontFamily="Roboto" FontSize="14" Foreground="Black" Background="#F5F5F5" 
         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Padding="0"
         Icon="Resources\Icons\mb.png">
@@ -40,6 +40,7 @@
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="Auto"/>
 
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -83,6 +84,10 @@
                       SelectedItem="{Binding Path=MyCOM.ParityControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding Path=MyCOM.ParityList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+            <CheckBox Grid.Row="0" Grid.Column="10" Grid.ColumnSpan="1" Margin="50,0,0,0" Padding="0" HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center" Content="Connect | Disconnect"
+                      IsChecked="{Binding Path=COMOpened, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            </CheckBox>
         </Grid>
 
 
@@ -103,7 +108,9 @@
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="20"/>
                 </Grid.RowDefinitions>
-
+                <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                  Height="40" Padding="0" Margin="0" Background="White"
+                         Text="{Binding Path=RxString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
         </GroupBox>
 

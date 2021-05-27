@@ -59,6 +59,40 @@ namespace MBMaster
             }
         }
 
+        private string _rxString;
+
+        public string RxString
+        {
+            get { return _rxString; }
+            set 
+            { 
+                _rxString = value;
+                NotifyProperyChanged("RxString");
+            }
+        }
+
+        private bool _comOpened;
+
+        public bool COMOpened
+        {
+            get { return _comOpened; }
+            set 
+            { 
+                _comOpened = value;
+                if(_comOpened)
+                {
+                    MyCOM.COMPortRT.Open();
+                }
+                else 
+                {
+                    MyCOM.COMPortRT.Close();
+                }
+                NotifyProperyChanged("COMOpened");
+            }
+        }
+
+
+
 
         public MainWindow()
         {
@@ -68,8 +102,24 @@ namespace MBMaster
             MyCOM_PropertyChanged(MyCOM, new PropertyChangedEventArgs("COMPortRT"));
             MyCOM.PropertyChanged += MyCOM_PropertyChanged;
 
+            MyCOM.COMPortRT.DataReceived += COMPortRT_DataReceived;
+
             MBReq = new MBRequest();
  
+        }
+
+        private void COMPortRT_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            SerialPort sp = sender as SerialPort;
+
+            RxString = string.Empty;
+            if (MyCOM.COMPortRT.IsOpen)
+            {
+                byte[] data = new byte[sp.BytesToRead];
+                sp.Read(data, 0, data.Length);
+                data.ToList().ForEach(a => RxString = RxString + a.ToString() + " : ");
+                sp.DiscardInBuffer();
+            }
         }
 
         private void MyCOM_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -86,12 +136,15 @@ namespace MBMaster
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        byte[] arr = new byte[10];
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            byte[] byteArr = MBReq.MBPDU.ToArray();
-            MyCOM.COMPortRT.Open();
-            MyCOM.COMPortRT.Write(byteArr, 0, byteArr.Length);
-            MyCOM.COMPortRT.Close();
+            if (MyCOM.COMPortRT.IsOpen)
+            {
+                byte[] byteArr = MBReq.MBPDU.ToArray();
+                MyCOM.COMPortRT.Write(byteArr, 0, byteArr.Length);
+            }
         }
     }
 

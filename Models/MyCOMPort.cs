@@ -192,7 +192,7 @@ namespace MBMaster.Models
 
 
 
-        private  SerialPort _comPortRT = new SerialPort();
+        private SerialPort _comPortRT = new SerialPort();
         public  SerialPort COMPortRT
         {
             get { return _comPortRT; }
@@ -205,7 +205,8 @@ namespace MBMaster.Models
 
 
         public MyCOMPort()
-        { 
+        {
+
         }
 
         // Notify property changed
