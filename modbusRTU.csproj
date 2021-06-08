@@ -69,9 +69,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Helper.cs" />
+    <Compile Include="Models\COMHandler\COMPortHandler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Models\COMHandler\MBHandler.cs" />
+    <Compile Include="Models\COMHandler\MBHelper.cs" />
     <Compile Include="Models\MBRequest.cs" />
-    <Compile Include="Models\MyCOMPort.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

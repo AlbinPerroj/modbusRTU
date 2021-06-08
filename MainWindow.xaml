@@ -5,30 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MBMaster"
         mc:Ignorable="d"
-        Title="ModBusRTU-Tool" Height="500" Width="1100" WindowStartupLocation="CenterOwner" ResizeMode="CanResize" 
+        Title="ModBusRTU-Tool" Height="600" Width="1000" WindowStartupLocation="CenterOwner" ResizeMode="CanResize" 
         WindowState="Normal" FontFamily="Roboto" FontSize="14" Foreground="Black" Background="#F5F5F5" 
         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Padding="0"
         Icon="Resources\Icons\mb.png">
 
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Background="Transparent" ShowGridLines="False">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
-
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="32"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-               Content="{Binding Path=COMPortInfo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-               Margin="0" Padding="20, 1,1,1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black"
-               BorderThickness="0,0,0,1" Background="White"/>
-
         <Grid Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-              Grid.Row="0" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#bdbdbd">
+              Grid.Row="0" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="2" Background="#bdbdbd"
+              ToolTip="{Binding Path=MBHandler.COMPort.COMPortInfo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="100"/>
@@ -37,61 +31,65 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="120"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="Auto"/>
-
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Label Content="COM" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                   Padding="0" Margin="20,3,3,3"  VerticalContentAlignment="Center"/>
+                   Padding="0" Margin="5,3,3,3"  VerticalContentAlignment="Center"/>
             <ComboBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                       Margin="3" Padding="5" VerticalContentAlignment="Center"
-                      SelectedItem="{Binding Path=MyCOM.ComPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding Path=MyCOM.COMList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                      SelectedItem="{Binding Path=MBHandler.COMPort.PName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Path=MBHandler.COMPort.PortNameList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="Baudrate" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                   Padding="0" Margin="20,3,3,3" VerticalContentAlignment="Center"/>
+                   Padding="0" Margin="5,3,3,3" VerticalContentAlignment="Center"/>
             <ComboBox Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                       Margin="3" Padding="5"  
-                      SelectedItem="{Binding Path=MyCOM.Baudrate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding Path=MyCOM.BaudrateList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                      SelectedItem="{Binding Path=MBHandler.COMPort.BRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Path=MBHandler.COMPort.BaudrateList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
 
             <Label Content="DataBits" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                   Padding="0" Margin="20,3,3,3" VerticalContentAlignment="Center"/>
+                   Padding="0" Margin="5,3,3,3" VerticalContentAlignment="Center"/>
             <ComboBox Grid.Row="0" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                       Margin="3" Padding="5" 
-                      SelectedItem="{Binding Path=MyCOM.DataBits, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding Path=MyCOM.DataBitsList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                      ItemsSource="{Binding Path=MBHandler.COMPort.DataBitsList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="Value" SelectedValuePath="Key"
+                      SelectedValue="{Binding Path=MBHandler.COMPort.DBits, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
             <Label Content="StopBits" Grid.Row="0" Grid.Column="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                   Padding="0" Margin="20,3,3,3" VerticalContentAlignment="Center"/>
+                   Padding="0" Margin="5,3,3,3" VerticalContentAlignment="Center"/>
             <ComboBox Grid.Row="0" Grid.Column="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                       Margin="3" Padding="5" 
-                      SelectedItem="{Binding Path=MyCOM.StopBits, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding Path=MyCOM.StopBitsList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                      ItemsSource="{Binding Path=MBHandler.COMPort.StopBitsList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="Value" SelectedValuePath="Key"
+                      SelectedValue="{Binding Path=MBHandler.COMPort.SBits, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 
             <Label Content="Parity" Grid.Row="0" Grid.Column="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                   Padding="0" Margin="20,3,3,3" VerticalContentAlignment="Center"/>
+                   Padding="0" Margin="5,3,3,3" VerticalContentAlignment="Center"/>
             <ComboBox Grid.Row="0" Grid.Column="9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                       Margin="3" Padding="5"
-                      SelectedItem="{Binding Path=MyCOM.ParityControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      ItemsSource="{Binding Path=MyCOM.ParityList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                      ItemsSource="{Binding Path=MBHandler.COMPort.ParityList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      DisplayMemberPath="Value" SelectedValuePath="Key"
+                      SelectedValue="{Binding Path=MBHandler.COMPort.ParityBit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <CheckBox Grid.Row="0" Grid.Column="10" Grid.ColumnSpan="1" Margin="50,0,0,0" Padding="0" HorizontalAlignment="Stretch"
-                        VerticalAlignment="Center" Content="Connect | Disconnect"
-                      IsChecked="{Binding Path=COMOpened, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <CheckBox Grid.Row="0" Grid.Column="10" Grid.ColumnSpan="1" Margin="0,0,0,0" Padding="0" HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"  Style="{StaticResource checkBox}" Height="25" Width="25" ToolTip="Connect/Disconnect"
+                      IsChecked="{Binding Path=MBHandler.COMPort.PortStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       >
             </CheckBox>
         </Grid>
 
 
-        <GroupBox Header="Receive Data" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+        <!--Receive data-->
+        <GroupBox Header="General Data" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                   Margin="2" Padding="2"  BorderBrush="DarkBlue" BorderThickness="1" Foreground="DarkBlue">
             <Grid Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
                 <Grid.ColumnDefinitions>
@@ -109,12 +107,13 @@
                     <RowDefinition Height="20"/>
                 </Grid.RowDefinitions>
                 <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                  Height="40" Padding="0" Margin="0" Background="White"
-                         Text="{Binding Path=RxString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                  Height="40" Padding="0" Margin="0" Background="White"/>
             </Grid>
         </GroupBox>
 
-        <GroupBox Header="Transmit Data" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+        
+        <!--Transmit data-->
+        <GroupBox Header="Transmit Data" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                   Margin="2" Padding="2"  BorderBrush="Red" BorderThickness="1" Foreground="Red">
             <Grid Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
                 <Grid.ColumnDefinitions>
@@ -123,16 +122,16 @@
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
 
                 <Label Content="Modbus request" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
@@ -141,31 +140,170 @@
                 <TextBox Grid.Row="1" Grid.Column="0" Margin="0" Padding="2" ToolTip="ID"
                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                          VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
-                         Text="{Binding Path=MBReq.ID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
+                         Text="{Binding Path=MBHandler.SlaveId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
                 
                 <ComboBox Grid.Row="1" Grid.Column="1" Margin="0" Padding="2" ToolTip="FC" HorizontalContentAlignment="Center"
                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                           VerticalContentAlignment="Center" DisplayMemberPath="Value" SelectedValuePath="Key"
-                          SelectedValue="{Binding Path=MBReq.FC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
-                          ItemsSource="{Binding Path=MBReq.FCodes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                          SelectedValue="{Binding Path=MBHandler.FuncCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                          ItemsSource="{Binding Path=MBHandler.FCodes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <TextBox Grid.Row="1" Grid.Column="2" Margin="0" Padding="2" ToolTip="Start Register"
                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right"
                          VerticalContentAlignment="Center"
-                         Text="{Binding Path=MBReq.StartAddr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
+                         Text="{Binding Path=MBHandler.StartingAddr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
                 
                 <TextBox Grid.Row="1" Grid.Column="3" Margin="0" Padding="2" ToolTip="Register number"
                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right"
                          VerticalContentAlignment="Center"
-                         Text="{Binding Path=MBReq.NrReg, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
+                         Text="{Binding Path=MBHandler.CoilOrRegsNr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
                 
                 <TextBox Grid.Row="1" Grid.Column="4" Margin="0" Padding="2" ToolTip="CRC"
                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right"
                          IsReadOnly="True" VerticalContentAlignment="Center"
-                         Text="{Binding Path=MBReq.CRC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
+                         Text="{Binding Path=MBHandler.CRC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"/>
 
-                <Button Content="Send" Height="20" Width="80" Click="Button_Click"
+                <Button x:Name="SEND_Btn" Content="Send" Height="20" Width="80"
                         Grid.Row="3" Grid.Column="5" Margin="0"/>
+
+                <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" Margin="2,20,2,2" ShowGridLines="False" Height="200"
+                          HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Transparent" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+    
+                    </Grid.RowDefinitions>
+
+                    <TextBox x:Name="TB1" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB2" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB3" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB4" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB5" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB6" Grid.Row="0" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB7" Grid.Row="0" Grid.Column="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB8" Grid.Row="0" Grid.Column="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB9" Grid.Row="0" Grid.Column="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB10" Grid.Row="0" Grid.Column="9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB11" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB12" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB13" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB14" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB15" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB16" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB17" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB18" Grid.Row="1" Grid.Column="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB19" Grid.Row="1" Grid.Column="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB20" Grid.Row="1" Grid.Column="9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB21" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB22" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB23" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB24" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB25" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB26" Grid.Row="2" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB27" Grid.Row="2" Grid.Column="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB28" Grid.Row="2" Grid.Column="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB29" Grid.Row="2" Grid.Column="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB30" Grid.Row="2" Grid.Column="9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB31" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB32" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB33" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB34" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB35" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB36" Grid.Row="3" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB37" Grid.Row="3" Grid.Column="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB38" Grid.Row="3" Grid.Column="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB39" Grid.Row="3" Grid.Column="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB40" Grid.Row="3" Grid.Column="9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB41" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB42" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB43" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB44" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB45" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB46" Grid.Row="4" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB47" Grid.Row="4" Grid.Column="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB48" Grid.Row="4" Grid.Column="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB49" Grid.Row="4" Grid.Column="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+                    <TextBox x:Name="TB50" Grid.Row="4" Grid.Column="9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="5" Padding="0"/>
+
+
+
+
+                </Grid>
+
+                <Label Content="{Binding Path=MBHandler.ReqString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                       Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                       HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="2" Padding="0"
+                       Background="AliceBlue" BorderBrush="Black" BorderThickness ="1"/>
+
+                <Label Content="{Binding Path=MBHandler.ReqString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                       Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                       HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="2" Padding="0"
+                       Background="Beige" BorderBrush="Black" BorderThickness ="1"/>
 
             </Grid>
         </GroupBox>

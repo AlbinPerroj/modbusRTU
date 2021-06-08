@@ -87,6 +87,8 @@ namespace MBMaster.Models
         }
 
 
+
+
         private List<byte> _mbPDU = new List<byte>();
 
         public List<byte> MBPDU

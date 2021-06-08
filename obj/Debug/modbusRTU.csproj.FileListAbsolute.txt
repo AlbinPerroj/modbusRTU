@@ -1,7 +1,6 @@
 C:\Users\User\Desktop\Projects\C#\modbusRTU\bin\Debug\MBMaster.exe.config
 C:\Users\User\Desktop\Projects\C#\modbusRTU\bin\Debug\MBMaster.exe
 C:\Users\User\Desktop\Projects\C#\modbusRTU\bin\Debug\MBMaster.pdb
-C:\Users\User\Desktop\Projects\C#\modbusRTU\obj\Debug\modbusRTU.csprojAssemblyReference.cache
 C:\Users\User\Desktop\Projects\C#\modbusRTU\obj\Debug\MainWindow.g.cs
 C:\Users\User\Desktop\Projects\C#\modbusRTU\obj\Debug\App.g.cs
 C:\Users\User\Desktop\Projects\C#\modbusRTU\obj\Debug\MBMaster_MarkupCompile.cache
@@ -13,3 +12,5 @@ C:\Users\User\Desktop\Projects\C#\modbusRTU\obj\Debug\modbusRTU.csproj.GenerateR
 C:\Users\User\Desktop\Projects\C#\modbusRTU\obj\Debug\modbusRTU.csproj.CoreCompileInputs.cache
 C:\Users\User\Desktop\Projects\C#\modbusRTU\obj\Debug\MBMaster.exe
 C:\Users\User\Desktop\Projects\C#\modbusRTU\obj\Debug\MBMaster.pdb
+C:\Users\User\Desktop\Projects\C#\modbusRTU\obj\Debug\App.baml
+C:\Users\User\Desktop\Projects\C#\modbusRTU\obj\Debug\modbusRTU.csproj.AssemblyReference.cache
